@@ -22,15 +22,20 @@ const SidebarItem = ({ icon: Icon, label, active, onClick }) => (
   </button>
 );
 
-export const Sidebar = ({ activeTab, setActiveTab }) => {
+export const Sidebar = ({ activeTab, setActiveTab, variant = "desktop" }) => {
   const items = [
     { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
     { id: "employees", label: "Employees", icon: Users },
     { id: "attendance", label: "Attendance", icon: Calendar },
   ];
 
+  const containerClassName =
+    variant === "mobile"
+      ? "w-64 bg-white border-r border-gray-200 h-full"
+      : "fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 lg:static lg:block hidden";
+
   return (
-    <aside className="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 lg:static lg:block hidden">
+    <aside className={containerClassName}>
       <div className="flex flex-col h-full">
         <div className="flex items-center justify-center h-16 border-b border-gray-200">
           <span className="text-xl font-bold text-primary-700">HRMS Lite</span>

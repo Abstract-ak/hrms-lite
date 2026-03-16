@@ -53,11 +53,12 @@ function App() {
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-50 flex lg:hidden">
           <div
-            className="fixed inset-0 bg-gray-600 bg-opacity-75"
+            className="fixed inset-0"
             onClick={() => setMobileMenuOpen(false)}
           ></div>
-          <div className="relative flex-1 flex flex-col max-w-xs w-full bg-white transition duration-300 ease-in-out">
+          <div className="relative w-64 flex flex-col bg-white">
             <Sidebar
+              variant="mobile"
               activeTab={activeTab}
               setActiveTab={(tab) => {
                 setActiveTab(tab);
