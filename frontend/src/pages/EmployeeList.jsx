@@ -174,7 +174,7 @@ export default function EmployeeList({ initialShowForm = false, onFormClose }) {
                 Department
               </label>
               <select
-                className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
+                className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
                 value={formData.department}
                 onChange={(e) =>
                   setFormData({ ...formData, department: e.target.value })
@@ -216,7 +216,7 @@ export default function EmployeeList({ initialShowForm = false, onFormClose }) {
           </div>
           <div className="w-full sm:w-48">
             <select
-              className="w-full px-3 py-2 text-sm rounded-md border border-gray-200 bg-white text-gray-900 focus:ring-2 focus:ring-primary-500 outline-none"
+              className="w-full px-3 py-2 text-sm rounded-md border border-gray-200 bg-white text-gray-900 focus:ring-2 focus:ring-primary-600 outline-none"
               value={selectedDepartment}
               onChange={(e) => setSelectedDepartment(e.target.value)}
             >
@@ -232,7 +232,7 @@ export default function EmployeeList({ initialShowForm = false, onFormClose }) {
 
         {loading ? (
           <div className="p-12 flex justify-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-700"></div>
           </div>
         ) : filteredEmployees.length === 0 ? (
           <div className="p-12 text-center text-gray-500">

@@ -3,16 +3,16 @@ import { Users, UserCheck, UserX, BarChart3, TrendingUp } from "lucide-react";
 import { Card, cn } from "../components/ui";
 import { dashboardService } from "../api";
 
-const StatCard = ({ title, value, icon: Icon, color, subtext }) => (
-  <Card className="p-6">
+const StatCard = ({ title, value, icon: Icon, subtext }) => (
+  <Card className="p-5">
     <div className="flex items-center justify-between">
       <div>
         <p className="text-sm font-medium text-gray-500">{title}</p>
-        <h3 className="text-2xl font-bold mt-1 text-gray-900">{value}</h3>
+        <h3 className="text-2xl font-semibold mt-1 text-gray-900">{value}</h3>
         {subtext && <p className="text-xs text-gray-400 mt-1">{subtext}</p>}
       </div>
-      <div className={cn("p-3 rounded-lg", color)}>
-        <Icon className="w-6 h-6 text-white" />
+      <div className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white">
+        <Icon className="w-5 h-5 text-gray-600" />
       </div>
     </div>
   </Card>
@@ -43,7 +43,7 @@ export default function Dashboard({ setActiveTab, navigateToEmployees }) {
   };
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-500">
+    <div className="space-y-8">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
@@ -53,26 +53,21 @@ export default function Dashboard({ setActiveTab, navigateToEmployees }) {
               : `Viewing statistics for ${selectedDate}`}
           </p>
         </div>
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center">
           <input
             type="date"
             value={selectedDate}
             onChange={(e) => setSelectedDate(e.target.value)}
-            className="px-3 py-1.5 rounded-lg border border-gray-300 bg-white text-sm focus:ring-2 focus:ring-primary-500 outline-none transition-all"
+            className="px-3 py-1.5 rounded-md border border-gray-300 bg-white text-sm focus:ring-2 focus:ring-primary-500 outline-none"
           />
-          <div className="hidden sm:flex items-center space-x-1 text-sm font-medium text-green-600 bg-green-50 px-3 py-1.5 rounded-full">
-            <TrendingUp className="w-4 h-4" />
-            <span>Active Session</span>
-          </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <StatCard
           title="Total Employees"
           value={stats.total_employees}
           icon={Users}
-          color="bg-blue-600"
           subtext="Registered in system"
         />
         <StatCard
@@ -83,7 +78,6 @@ export default function Dashboard({ setActiveTab, navigateToEmployees }) {
           }
           value={stats.present_today}
           icon={UserCheck}
-          color="bg-emerald-600"
           subtext="Marked as active"
         />
         <StatCard
@@ -94,15 +88,16 @@ export default function Dashboard({ setActiveTab, navigateToEmployees }) {
           }
           value={stats.absent_today}
           icon={UserX}
-          color="bg-red-600"
           subtext="Not in office"
         />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <Card className="p-6">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-bold text-gray-900">Recent Activity</h3>
+        <Card className="p-5">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold text-gray-900">
+              Recent Activity
+            </h3>
             <BarChart3 className="w-5 h-5 text-gray-400" />
           </div>
           {loading ? (
@@ -118,20 +113,20 @@ export default function Dashboard({ setActiveTab, navigateToEmployees }) {
           )}
         </Card>
 
-        <Card className="p-6">
-          <h3 className="text-lg font-bold text-gray-900 mb-6">
+        <Card className="p-5">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">
             Quick Actions
           </h3>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-3">
             <button
               onClick={() => navigateToEmployees(true)}
-              className="p-4 bg-primary-50 text-primary-700 rounded-lg hover:bg-primary-100 transition-colors text-sm font-medium"
+              className="p-3 rounded-md border border-gray-200 text-gray-700 hover:border-gray-300 hover:bg-gray-50 transition-colors text-sm font-medium"
             >
               Add Employee
             </button>
             <button
               onClick={() => setActiveTab("attendance")}
-              className="p-4 bg-emerald-50 text-emerald-700 rounded-lg hover:bg-emerald-100 transition-colors text-sm font-medium"
+              className="p-3 rounded-md border border-gray-200 text-gray-700 hover:border-gray-300 hover:bg-gray-50 transition-colors text-sm font-medium"
             >
               Mark Attendance
             </button>

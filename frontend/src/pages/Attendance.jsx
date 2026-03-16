@@ -72,16 +72,16 @@ export default function Attendance() {
   };
 
   return (
-    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold text-gray-900">Attendance</h1>
         <p className="text-gray-500">Track daily records for your team.</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Employee Selector */}
         <Card className="lg:col-span-1">
-          <div className="p-4 border-b border-gray-100 flex items-center bg-gray-50">
+          <div className="p-4 border-b border-gray-100 flex items-center">
             <Search className="w-4 h-4 text-gray-400 mr-2" />
             <h3 className="text-sm font-semibold text-gray-700 capitalize">
               Select Employee
@@ -97,15 +97,15 @@ export default function Attendance() {
                 No employees found.
               </div>
             ) : (
-              <div className="divide-y divide-gray-50">
+              <div className="divide-y divide-gray-100">
                 {employees.map((emp) => (
                   <button
                     key={emp.employee_id}
                     onClick={() => handleSelectEmployee(emp)}
                     className={cn(
-                      "w-full p-4 text-left flex items-center transition-colors hover:bg-primary-50/50",
+                      "w-full p-4 text-left flex items-center transition-colors hover:bg-gray-50",
                       selectedEmp?.employee_id === emp.employee_id
-                        ? "bg-primary-50 border-r-4 border-primary-600"
+                        ? "bg-gray-50 border-r-2 border-gray-300"
                         : "",
                     )}
                   >
@@ -128,7 +128,7 @@ export default function Attendance() {
         {/* Action Panel */}
         <div className="lg:col-span-2 space-y-6">
           {!selectedEmp ? (
-            <Card className="h-full flex flex-col items-center justify-center p-12 text-center text-gray-400 border-dashed bg-gray-50/50">
+            <Card className="h-full flex flex-col items-center justify-center p-12 text-center text-gray-400 border-dashed">
               <CalendarIcon className="w-12 h-12 mb-4 opacity-50" />
               <p>
                 Select an employee from the list to mark attendance or view
@@ -137,7 +137,7 @@ export default function Attendance() {
             </Card>
           ) : (
             <>
-              <Card className="p-6">
+              <Card className="p-5">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                   <div>
                     <h3 className="text-xl font-bold text-gray-900">
@@ -170,7 +170,7 @@ export default function Attendance() {
                 {message.text && (
                   <div
                     className={cn(
-                      "mt-4 p-3 rounded-md text-sm font-medium animate-in slide-in-from-top-2",
+                      "mt-4 p-3 rounded-md text-sm font-medium",
                       message.type === "success"
                         ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
                         : "bg-red-50 text-red-700 border border-red-100",

@@ -9,13 +9,13 @@ const SidebarItem = ({ icon: Icon, label, active, onClick }) => (
       "flex items-center w-full px-4 py-3 text-sm font-medium transition-colors rounded-lg group",
       active
         ? "bg-primary-50 text-primary-700"
-        : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
+        : "text-gray-700 hover:bg-gray-50 hover:text-gray-900",
     )}
   >
     <Icon
       className={cn(
         "w-5 h-5 mr-3",
-        active ? "text-primary-600" : "text-gray-400 group-hover:text-gray-600",
+        active ? "text-primary-700" : "text-gray-500 group-hover:text-gray-700",
       )}
     />
     {label}
@@ -33,7 +33,7 @@ export const Sidebar = ({ activeTab, setActiveTab }) => {
     <aside className="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 lg:static lg:block hidden">
       <div className="flex flex-col h-full">
         <div className="flex items-center justify-center h-16 border-b border-gray-200">
-          <span className="text-xl font-bold text-primary-600">HRMS Lite</span>
+          <span className="text-xl font-bold text-primary-700">HRMS Lite</span>
         </div>
         <nav className="flex-1 px-4 py-6 space-y-2">
           {items.map((item) => (
@@ -45,14 +45,6 @@ export const Sidebar = ({ activeTab, setActiveTab }) => {
             />
           ))}
         </nav>
-        <div className="p-4 border-t border-gray-200">
-          <div className="flex items-center px-4 py-3 text-sm text-gray-500">
-            <div className="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center text-primary-700 font-bold mr-3">
-              A
-            </div>
-            <span>Admin User</span>
-          </div>
-        </div>
       </div>
     </aside>
   );
