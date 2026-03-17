@@ -46,8 +46,8 @@ hrms-lite/
 
 ## Live Links
 
-- Frontend: <ADD_FRONTEND_URL>
-- Backend API: <ADD_BACKEND_URL>
+- Frontend: https://hrms-lite-three-ivory.vercel.app/
+- Backend API: https://hrms-lite-e15u.onrender.com
 
 ## Local Setup
 
@@ -108,7 +108,3 @@ hrms-lite/
 
 - Single admin user, no authentication
 - Payroll and leave management are out of scope
-
-## License
-
-MIT
