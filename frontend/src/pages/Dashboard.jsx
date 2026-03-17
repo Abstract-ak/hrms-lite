@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Users, UserCheck, UserX, BarChart3, TrendingUp } from "lucide-react";
-import { Card, cn } from "../components/ui";
-import { dashboardService } from "../api";
+import { Users, UserCheck, UserX, BarChart3 } from "lucide-react";
+import { Card, Table } from "../components/ui";
+import { dashboardService, employeeService } from "../api";
 
 const StatCard = ({ title, value, icon: Icon, subtext }) => (
   <Card className="p-5">
@@ -25,6 +25,8 @@ export default function Dashboard({ setActiveTab, navigateToEmployees }) {
     absent_today: 0,
   });
   const [loading, setLoading] = useState(true);
+  const [employees, setEmployees] = useState([]);
+  const [employeeLoading, setEmployeeLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().split("T")[0],
   );
@@ -33,6 +35,10 @@ export default function Dashboard({ setActiveTab, navigateToEmployees }) {
     fetchStats(selectedDate);
   }, [selectedDate]);
 
+  useEffect(() => {
+    fetchEmployees();
+  }, []);
+
   const fetchStats = (date) => {
     setLoading(true);
     dashboardService
@@ -40,6 +46,15 @@ export default function Dashboard({ setActiveTab, navigateToEmployees }) {
       .then((res) => setStats(res.data))
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));
+  };
+
+  const fetchEmployees = () => {
+    setEmployeeLoading(true);
+    employeeService
+      .getAll()
+      .then((res) => setEmployees(res.data))
+      .catch((err) => console.error(err))
+      .finally(() => setEmployeeLoading(false));
   };
 
   return (
@@ -92,46 +107,67 @@ export default function Dashboard({ setActiveTab, navigateToEmployees }) {
         />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-8"></div> */}
+      <div>
         <Card className="p-5">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-gray-900">
-              Recent Activity
+              Attendance Overview
             </h3>
             <BarChart3 className="w-5 h-5 text-gray-400" />
           </div>
-          {loading ? (
+          {employeeLoading ? (
             <div className="flex justify-center p-8">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
             </div>
+          ) : employees.length === 0 ? (
+            <p className="text-sm text-gray-500 italic">No employees found.</p>
           ) : (
-            <div className="space-y-4">
-              <p className="text-sm text-gray-500 italic">
-                No recent activity for this date.
-              </p>
-            </div>
+            <Table headers={["Employee", "Department", "Present", "Absent"]}>
+              {employees.map((emp) => (
+                <tr key={emp.employee_id} className="hover:bg-gray-50">
+                  <td className="px-6 py-4 text-sm text-gray-900">
+                    <div className="font-medium">{emp.full_name}</div>
+                    <div className="text-xs text-gray-400">
+                      {emp.employee_id}
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-700">
+                    {emp.department}
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-900">
+                    {emp.total_present ?? 0}
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-900">
+                    {emp.total_absent ?? 0}
+                  </td>
+                </tr>
+              ))}
+            </Table>
           )}
         </Card>
 
-        <Card className="p-5">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+        {/*
+        <Card className="p-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-6">
             Quick Actions
           </h3>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-4">
             <button
               onClick={() => navigateToEmployees(true)}
-              className="p-3 rounded-md border border-gray-200 text-gray-700 hover:border-gray-300 hover:bg-gray-50 transition-colors text-sm font-medium"
+              className="p-4 rounded-md border border-gray-200 text-gray-700 hover:border-gray-300 hover:bg-gray-50 transition-colors text-sm font-medium"
             >
               Add Employee
             </button>
             <button
               onClick={() => setActiveTab("attendance")}
-              className="p-3 rounded-md border border-gray-200 text-gray-700 hover:border-gray-300 hover:bg-gray-50 transition-colors text-sm font-medium"
+              className="p-4 rounded-md border border-gray-200 text-gray-700 hover:border-gray-300 hover:bg-gray-50 transition-colors text-sm font-medium"
             >
               Mark Attendance
             </button>
           </div>
         </Card>
+        */}
       </div>
     </div>
   );
